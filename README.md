@@ -1,41 +1,70 @@
 # TrackingHub::Request
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/tracking_hub/request`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Part of __TrackingHub__, __Request__ is a gem tracking every requests on the backend side. Some keys will be filtered and the request data will finally be saved into a logfile. This logfile will be automatically managed and rotated by the [logging](https://github.com/TwP/logging) gem.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'tracking_hub-request'
+gem 'tracking_hub-request', git: 'git@github.com:SparkHub/gs-tracking-requests.git'
 ```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
+## Configuration _(optional)_
 
-    $ gem install tracking_hub-request
+In an initializer, you can configure the tracker:
+
+```ruby
+# ./config/initializers/request_tracker.rb
+TrackingHub::Request.setup do |config|
+  config.app_version   = '1.0'
+  config.required_keys = %w(my rack env keys to log)
+  config.logger        = ActiveSupport::Logger.new('requests.log')
+  config.notification  = TrackingHub::Request::Notification.new(TrackingHub::Request::Notification::HipChat.new('my_token', 'my_room', 'my_username'))
+end
+```
+
+__Note:__
+
+- __logger__
+
+Here you can define your own configured logger. The default logger is [logging](https://github.com/TwP/logging). Feel free to add your own, or use another gem!
+
+- __notification__
+
+If an error occure, it will be catched and a notification will be sent to the service of your choice. The list of available services are defined [here](https://github.com/SparkHub/gs-tracking-requests/tree/master/lib/tracking_hub/request/notification).
 
 ## Usage
 
-TODO: Write usage instructions here
+Add the middleware to your environment:
 
-## Development
+```ruby
+config.middleware.insert_after ActionDispatch::DebugExceptions, TrackingHub::Request::Middleware
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Activate the TrackingHub by adding to your environment (or `.env`):
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+    $ TRACKER=true
+
+Get your request logs:
+
+    $ tail -f ./log/tracker/requests.log
+
+## Running tests
+
+To run tests:
+
+    $ bundle exec rake spec
 
 ## Contributing
 
-Bug reports and pull request are welcome on GitHub at https://github.com/[USERNAME]/tracking_hub-request. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull request are welcome on GitHub at https://github.com/SparkHub/tracking_hub-request. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
