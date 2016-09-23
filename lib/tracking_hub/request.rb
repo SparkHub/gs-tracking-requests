@@ -1,3 +1,5 @@
+require 'logging'
+
 require_relative 'request/version'
 require_relative 'request/middleware'
 require_relative 'request/setup'
