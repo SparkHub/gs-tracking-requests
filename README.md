@@ -1,3 +1,6 @@
+[![Code Climate](https://codeclimate.com/github/SparkHub/gs-tracking-requests/badges/gpa.svg)](https://codeclimate.com/github/SparkHub/gs-tracking-requests)
+[![Test Coverage](https://codeclimate.com/github/SparkHub/gs-tracking-requests/badges/coverage.svg)](https://codeclimate.com/github/SparkHub/gs-tracking-requests/coverage)
+
 # TrackingHub::Request
 
 Part of __TrackingHub__, __Request__ is a gem tracking every requests on the backend side. Some keys will be filtered and the request data will finally be saved into a logfile. This logfile will be automatically managed and rotated by the [logging](https://github.com/TwP/logging) gem.
