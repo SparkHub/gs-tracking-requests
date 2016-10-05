@@ -1,6 +1,6 @@
 require_relative 'notification/hip_chat'
 
-module TrackingHub
+module TrackerHub
   class Request
 
     class Notification

@@ -1,6 +1,6 @@
 require_relative 'config'
 
-module TrackingHub
+module TrackerHub
   class Request
 
     module Setup

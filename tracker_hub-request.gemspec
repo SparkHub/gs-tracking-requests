@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'tracking_hub/request/version'
+require 'tracker_hub/request/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'tracking_hub-request'
-  spec.version       = TrackingHub::Request::VERSION
+  spec.name          = 'tracker_hub-request'
+  spec.version       = TrackerHub::Request::VERSION
   spec.authors       = ['Maxime Chaisse-Leal']
   spec.email         = ['maxime.chaisseleal@gmail.com']
 

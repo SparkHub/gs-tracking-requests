@@ -1,10 +1,10 @@
-module TrackingHub
+module TrackerHub
   class Request
 
     class Middleware
 
       def initialize(app)
-        @logger = ::TrackingHub::Request.config.logger
+        @logger = ::TrackerHub::Request.config.logger
         @app    = app
       end
 
@@ -21,10 +21,10 @@ module TrackingHub
 
       def track(env, status, headers)
         begin
-          @logger.info ::TrackingHub::Request.new(env, status, headers).to_logger
+          @logger.info ::TrackerHub::Request.new(env, status, headers).to_logger
         rescue StandardError => e
           msg = "[#{Rails.env}]\n#{e.message}\n#{e.backtrace.join('\n')}"
-          ::TrackingHub::Request.config.notification.notify(msg)
+          ::TrackerHub::Request.config.notification.notify(msg)
         end
       end
 

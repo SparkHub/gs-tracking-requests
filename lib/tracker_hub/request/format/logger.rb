@@ -1,4 +1,4 @@
-module TrackingHub
+module TrackerHub
   class Request
     module Format
 
@@ -22,7 +22,7 @@ module TrackingHub
         class << self
 
           def clean_env(env)
-            env.slice(*::TrackingHub::Request.config.required_keys).tap do |new_env|
+            env.slice(*::TrackerHub::Request.config.required_keys).tap do |new_env|
               new_env['action_dispatch.logger']      = env['action_dispatch.logger'].formatter.session_info
               new_env['action_dispatch.remote_ip']   = env['action_dispatch.remote_ip'].to_s
               new_env['rack.session']                = env['rack.session'].try(:to_hash)

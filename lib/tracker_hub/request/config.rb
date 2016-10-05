@@ -3,7 +3,7 @@ require_relative 'config/logger'
 require_relative 'format/logger'
 require_relative 'notification'
 
-module TrackingHub
+module TrackerHub
   class Request
 
     class Config

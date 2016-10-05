@@ -1,4 +1,4 @@
-module TrackingHub
+module TrackerHub
   class Request
     class Config
 

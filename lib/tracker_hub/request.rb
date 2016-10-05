@@ -4,7 +4,7 @@ require_relative 'request/version'
 require_relative 'request/middleware'
 require_relative 'request/setup'
 
-module TrackingHub
+module TrackerHub
   class Request
     extend  Setup
     include Format::Logger::InstanceMethods
