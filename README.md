@@ -65,7 +65,7 @@ To run tests:
 
 ## Contributing
 
-Bug reports and pull request are welcome on GitHub at https://github.com/SparkHub/tracker_hub-request. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull request are welcome on GitHub at https://github.com/SparkHub/gs-tracking-requests. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License
