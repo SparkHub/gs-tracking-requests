@@ -5,9 +5,8 @@ require_relative 'notification'
 
 module TrackerHub
   class Request
-
+    # TrackerHub::Request configuration object, can be setup in an initializer
     class Config
-
       # @return [undefined] logger object to log the request data with
       # @api public
       attr_accessor :logger

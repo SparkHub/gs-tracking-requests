@@ -1,16 +1,17 @@
 module TrackerHub
   class Request
     class Notification
-
+      # Service to send notifications to when an error occured during the log process
       class HipChat
         # HipChat API version to call by default
         API_VERSION = 'v2'.freeze
 
         # Send a notification message
         #
-        # @param [String] msg     Message to send
-        # @param [Hash]   options See more options at
-        #                          https://www.hipchat.com/docs/apiv2/method/send_room_notification
+        # @param  [String] msg     Message to send
+        # @param  [Hash]   options See more options at
+        #                           https://www.hipchat.com/docs/apiv2/method/send_room_notification
+        # @return [Boolean]
         #
         # @example
         #   > notifier = TrackerHub::Request::Notification::HipChat.new(token, 'room', 'username')
@@ -18,7 +19,7 @@ module TrackerHub
         #
         # @api public
         def send_message(msg, options = {})
-          @client[@room].send(@username, msg, @options.merge(options))
+          client[room].send(username, msg, options.merge(options))
         end
 
         private
@@ -27,7 +28,7 @@ module TrackerHub
         # @api private
         attr_accessor :client
 
-        # @return [String]] user's name sending the message
+        # @return [String] user's name sending the message
         # @api private
         attr_accessor :username
 

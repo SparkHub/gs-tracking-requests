@@ -114,7 +114,7 @@ describe TrackerHub::Request::Notification::HipChat do
         subject { Factory.hip_chat }
 
         it { expect{subject.send_message()}.to raise_error(ArgumentError) }
-        it { expect{subject.send_message('my message', 'options')}.to raise_error(TypeError) }
+        it { expect{subject.send_message('my message', 'options')}.to raise_error(NoMethodError) }
         it { expect{subject.send_message('my message', {}, 'extra')}.to raise_error(ArgumentError) }
       end
 

@@ -2,7 +2,7 @@ require_relative 'notification/hip_chat'
 
 module TrackerHub
   class Request
-
+    # Notify a configured service when an error occured during the request log process
     class Notification
       # Key to cache the timelapse between 2 notifications
       KEY_CACHE = 'trackinghub_request_notification'.freeze
@@ -33,11 +33,11 @@ module TrackerHub
       #
       # @api public
       def notify(message, args = {})
-        return unless self.notifier.respond_to?(:send_message)
-
         timelapser do
-          self.notifier.send_message(message, self.options.merge(args))
+          notifier.send_message(message, options.merge(args))
         end
+      rescue
+        false
       end
 
       private
@@ -80,15 +80,14 @@ module TrackerHub
 
       # Execute an action in a timelapse
       #
-      # @yield Portion of code to execute every :timelapse:
       # @return [Boolean]
       #
       # @api private
-      def timelapser(&block)
-        return block.call unless self.timelapse
+      def timelapser
+        return yield unless timelapse
 
-        Rails.cache.fetch(KEY_CACHE, expires_in: self.timelapse) do
-          block.call
+        Rails.cache.fetch(KEY_CACHE, expires_in: timelapse) do
+          yield
         end
       end
     end

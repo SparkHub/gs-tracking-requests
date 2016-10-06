@@ -1,8 +1,10 @@
+require_relative 'utils/env'
+require_relative 'utils/exception'
+
 module TrackerHub
   class Request
-
+    # Middleware to include in a Rails stack to log every incoming requests
     class Middleware
-
       # Method called by the middleware stack to run the request tracker
       #
       # @param  [Hash]  env Rack env
@@ -13,7 +15,7 @@ module TrackerHub
         # execute application to get more data (injected into env)
         status, headers, body = @app.call(env)
         # save logs from env
-        track(env, status, headers) unless do_not_track(env)
+        track(env, status, headers)
         # release the process to other middlewares
         [status, headers, body]
       end
@@ -47,24 +49,13 @@ module TrackerHub
       #
       # @api private
       def track(env, status, headers)
-        begin
-          @logger.info ::TrackerHub::Request.new(env, status, headers).to_logger
-        rescue StandardError => e
-          backtrace = e.backtrace.join("\n")
-          msg       = "[#{Rails.env}]\n#{e.message}\n#{backtrace}"
-          ::TrackerHub::Request.config.notification.notify(msg)
-        end
-      end
+        new_env = Utils::Env.new(env)
+        return unless new_env.trackable?
 
-      # Should the request tracker log the current request
-      #
-      # @param  [Hash]    env Rack env
-      # @return [Boolean]     true if should not track the current request,
-      #                         false if should track the current request
-      #
-      # @api private
-      def do_not_track(env)
-        env['SCRIPT_NAME'] == '/assets'
+        @logger.info ::TrackerHub::Request.new(new_env, status, headers).to_logger
+      rescue StandardError => exception
+        notifier = ::TrackerHub::Request.config.notification
+        Utils::Exception.new(exception).report(notifier)
       end
     end
   end

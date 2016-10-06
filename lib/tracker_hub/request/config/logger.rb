@@ -1,7 +1,7 @@
 module TrackerHub
   class Request
     class Config
-
+      # Default customizable configurations for normal/rolling logger
       module Logger
         ROLLING_PATTERN = '%Y-%m-%d-%H-%M-%S'.freeze
         ROLLING_AGE     = 'daily'.freeze
@@ -10,7 +10,6 @@ module TrackerHub
         LOGFILE_NAME    = "#{LOGGER_NAME}.log".freeze
 
         class << self
-
           # Template for the rolling logger configuration
           #   Note: for additional options, please refer to:
           #   http://www.rubydoc.info/gems/logging/Logging/Appenders/RollingFile:initialize
@@ -85,6 +84,18 @@ module TrackerHub
 
             logger
           end
+
+          # Get the current rails log path
+          #
+          # @return [String]
+          #
+          # @api private
+          #
+          # :nocov:
+          def log_path
+            Pathname.new(Rails.application.config.paths['log'].first).parent.to_s
+          end
+          # :nocov:
         end
       end
     end

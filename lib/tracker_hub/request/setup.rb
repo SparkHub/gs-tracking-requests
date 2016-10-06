@@ -2,9 +2,8 @@ require_relative 'config'
 
 module TrackerHub
   class Request
-
+    # Configure the request tracker
     module Setup
-
       # Get the current configuration, instantiate a new object if nil
       #   Note: each attribute can also be written through the config object
       #
@@ -26,6 +25,7 @@ module TrackerHub
       # Setup configuration in block
       #
       # @yield (see TrackerHub::Request::Config#initialize)
+      # @return [TrackerHub::Request::Config]
       #
       # @example
       #   > TrackerHub::Request.setup do |config|
