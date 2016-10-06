@@ -1,5 +1,31 @@
-sudo: false
 language: ruby
+sudo: false
+cache:
+  - bundler
+
 rvm:
+  - jruby-head
+  - rbx-2
+  - 2.0.0
+  - 2.1.9
+  - 2.2.5
   - 2.3.1
-before_install: gem install bundler -v 1.13.1
+  - ruby-head
+
+addons:
+  code_climate:
+    repo_token: 54662312136af39c0814c981c7693a7baf17fbeb09e154806a08b97f467c9392
+
+before_install:
+  - gem install bundler
+
+before_script:
+  - bundle update
+
+script:
+  - bundle exec rake spec
+
+matrix:
+  allow_failures:
+    - rvm: rbx-2
+    - rvm: jruby-head

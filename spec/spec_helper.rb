@@ -1,5 +1,18 @@
+ENV['RAILS_ENV'] ||= 'test'
+
+require 'codeclimate-test-reporter'
+require 'simplecov'
+
 require 'active_support'
 require 'active_support/core_ext/numeric'
+
+CodeClimate::TestReporter.start
+SimpleCov.start do
+  formatter SimpleCov::Formatter::MultiFormatter.new([
+    SimpleCov::Formatter::HTMLFormatter,
+    CodeClimate::TestReporter::Formatter
+  ])
+end
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'tracker_hub/request'

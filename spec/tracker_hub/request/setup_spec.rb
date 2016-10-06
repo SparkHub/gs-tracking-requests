@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'support/logger_helper'
+require 'support/rails_log_path_helper'
 
 describe TrackerHub::Request do
 
@@ -7,10 +7,10 @@ describe TrackerHub::Request do
     describe 'getter' do
 
       context '#config' do
-        include LoggerHelper
+        include RailsLogPathHelper
 
         before(:each) do
-          stub_logger
+          stub_pathname
         end
 
         it { expect(described_class.config).to be_a(TrackerHub::Request::Config) }

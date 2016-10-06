@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'support/logger_helper'
+require 'support/rails_log_path_helper'
 
 describe TrackerHub::Request::Config::Logger do
 
@@ -32,30 +32,26 @@ describe TrackerHub::Request::Config::Logger do
   end
 
   describe 'class methods' do
-    include LoggerHelper
+    include RailsLogPathHelper
 
     context '#default_config' do # stubbed method
       before(:each) do
-        stub_logger
+        stub_pathname
       end
 
-      it { expect(described_class.default_config).to be_truthy }
+      it { expect(described_class.default_config).to be_a(ActiveSupport::Logger) }
     end
 
     context '#rolling_logger' do # stubbed method
 
       context 'more than 1 argument arguments' do
-        before(:each) do
-          stub_rolling_logger_raise(ArgumentError)
-        end
-
         it { expect{described_class.rolling_logger('too', 'many')}.to \
           raise_error(ArgumentError) }
       end
 
       context 'wrong type of arguments' do
         before(:each) do
-          stub_rolling_logger_raise(TypeError)
+          stub_pathname
         end
 
         it { expect{described_class.rolling_logger('wrong')}.to raise_error(TypeError) }
@@ -63,7 +59,7 @@ describe TrackerHub::Request::Config::Logger do
 
       context 'hash as argument' do
         before(:each) do
-          stub_rolling_logger
+          stub_pathname
         end
 
         it { expect(described_class.rolling_logger({})).to be_a(Logging::Logger) }

@@ -1,13 +1,13 @@
 require 'spec_helper'
-require 'support/logger_helper'
+require 'support/rails_log_path_helper'
 
 describe TrackerHub::Request::Config do
+  include RailsLogPathHelper
 
   describe 'instantiation' do
-    include LoggerHelper
 
     before(:each) do
-      stub_logger
+      stub_pathname
     end
 
     it { expect(described_class.new).to be_a(described_class) }
@@ -27,10 +27,9 @@ describe TrackerHub::Request::Config do
   end
 
   describe 'attributes' do
-    include LoggerHelper
 
     before(:each) do
-      stub_logger
+      stub_pathname
     end
 
     subject { described_class.new }

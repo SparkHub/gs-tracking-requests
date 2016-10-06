@@ -1,17 +1,17 @@
 require 'spec_helper'
 require 'json'
 require 'rack/mock'
-require 'support/logger_helper'
+require 'support/rails_log_path_helper'
 require 'support/rails'
 require 'factories/env'
 require 'factories/status'
 require 'factories/headers'
 
 describe TrackerHub::Request::Middleware do
-  include LoggerHelper
+  include RailsLogPathHelper
 
   before(:each) do
-    stub_logger
+    stub_pathname
   end
 
   let(:status)  { Factory.status }
@@ -55,7 +55,7 @@ describe TrackerHub::Request::Middleware do
           end
 
           it 'expects to not call the tracking request method' do
-            expect(subject).to_not receive(:track)
+            expect(TrackerHub::Request.config.logger).to_not receive(:info)
             subject.call(env)
           end
         end

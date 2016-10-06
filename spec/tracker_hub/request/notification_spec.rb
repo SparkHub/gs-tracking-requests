@@ -65,31 +65,42 @@ describe TrackerHub::Request::Notification do
     context '#notify' do
       include HipChatHelper
 
-      context 'without timelapse' do
+      context 'cache' do
+
+        context 'without timelapse' do
+          let(:notifier) { Struct.new_singleton('Notifier') }
+          subject { Factory.notification(notifier) }
+
+          # it { expect{subject.notify('message')}.to_not raise_error }
+
+          it 'expects to not write in the cache' do
+            subject.notify('message')
+            expect(Rails.cache.exist?(described_class::KEY_CACHE)).to be(false)
+          end
+        end
+
+        context 'with timelapse' do
+          let(:notifier) { Factory.hip_chat }
+          subject { Factory.notification(notifier, timelapse: 42.minutes) }
+
+          before(:each) do
+            Rails.cache.clear
+            stub_hip_chat
+          end
+
+          it 'expects to write the timelapse in the cache' do
+            subject.notify('message')
+            expect(Rails.cache.exist?(described_class::KEY_CACHE)).to be(true)
+          end
+        end
+      end
+
+      context 'when notifier raise an exception' do
         let(:notifier) { Struct.new_singleton('Notifier') }
         subject { Factory.notification(notifier) }
 
         it { expect{subject.notify('message')}.to_not raise_error }
-
-        it 'expects to not write in the cache' do
-          subject.notify('message')
-          expect(Rails.cache.exist?(described_class::KEY_CACHE)).to be(false)
-        end
-      end
-
-      context 'with timelapse' do
-        let(:notifier) { Factory.hip_chat }
-        subject { Factory.notification(notifier, timelapse: 42.minutes) }
-
-        before(:each) do
-          Rails.cache.clear
-          stub_hip_chat
-        end
-
-        it 'expects to write the timelapse in the cache' do
-          subject.notify('message')
-          expect(Rails.cache.exist?(described_class::KEY_CACHE)).to be(true)
-        end
+        it { expect(subject.notify('message')).to eq(false) }
       end
 
       context 'hip_chat' do
