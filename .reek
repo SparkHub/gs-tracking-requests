@@ -1,0 +1,14 @@
+---
+TooManyStatements:
+  enabled: true
+  exclude:
+  - initialize
+  max_statements: 10
+
+Attribute:
+  exclude:
+    - TrackerHub::Request::Config
+
+# Directories below will not be scanned at all
+exclude_paths:
+  - spec

@@ -5,13 +5,38 @@ require_relative 'notification'
 
 module TrackerHub
   class Request
-
+    # TrackerHub::Request configuration object, can be setup in an initializer
     class Config
+      # @return [undefined] logger object to log the request data with
+      # @api public
+      attr_accessor :logger
 
-      attr_accessor :logger, :required_keys, :notification, :app_version
+      # @return [Array<String>] rack env keys to log
+      # @api public
+      attr_accessor :required_keys
+
+      # @return [TrackerHub::Request::Notification] service to send a
+      #   notification to if request log process fails
+      # @api public
+      attr_accessor :notification
+
+      # @return [String] version of the application logging the request data
+      # @api public
+      attr_accessor :app_version
 
       private
 
+      # Instanciate a Config object with default values
+      #
+      # @todo Extract logger logic to be able to store data in another way
+      #   (ex: database)
+      #
+      # @return [TrackerHub::Request::Config]
+      #
+      # @example
+      #   > TrackerHub::Request::Config.new
+      #
+      # @api private
       def initialize
         self.app_version   = ''
         self.logger        = Logger.default_config
