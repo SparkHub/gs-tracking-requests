@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Maxime Chaisse-Leal']
   spec.email         = ['maxime.chaisseleal@gmail.com']
 
-  spec.summary       = %q{Track all the request and store them in log files.}
-  spec.description   = %q{Track all the request and store them in log files.}
+  spec.summary       = 'Track all the incoming requests and store them in log files.'
+  spec.description   = 'Track all the incoming requests and store them in log files.'
   spec.homepage      = 'https://github.com/SparkHub/gs-tracking-request'
   spec.license       = 'MIT'
 
@@ -22,8 +22,21 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'logging', '~> 2.1'
+  spec.add_dependency 'hipchat', '~> 1.5'
 
-  spec.add_development_dependency 'bundler', '~> 1.13'
-  spec.add_development_dependency 'rake',    '~> 10.0'
-  spec.add_development_dependency 'rspec',   '~> 3.0'
+  if RUBY_VERSION < '2.2.2'
+    spec.add_dependency 'activesupport', '< 5'
+  else
+    spec.add_dependency 'activesupport'
+  end
+
+  spec.add_development_dependency 'bundler',   '~> 1.13'
+  spec.add_development_dependency 'rake',      '~> 11.3'
+  spec.add_development_dependency 'rspec',     '~> 3.0'
+
+  if RUBY_VERSION < '2.2.2'
+    spec.add_development_dependency 'rack', '~> 1.6'
+  else
+    spec.add_development_dependency 'rack'
+  end
 end
