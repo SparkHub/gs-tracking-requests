@@ -32,23 +32,6 @@ describe TrackerHub::Request::Notification do
         it { expect{subject.options = {}}.to raise_error(NoMethodError) }
       end
     end
-
-    context 'private' do
-      subject { described_class.new }
-
-      context '#notifier' do
-        it { expect(subject.instance_variable_set(:@notifier, 'hack')).to eq('hack') }
-      end
-
-      context '#timelapse' do
-        it { expect(subject.instance_variable_set(:@timelapse,84)).to eq(84) }
-      end
-
-      context '#options' do
-        it { expect(subject.instance_variable_set(:@options, {my: 'option'})).to \
-          eq({my: 'option'}) }
-      end
-    end
   end
 
   describe 'initialization' do

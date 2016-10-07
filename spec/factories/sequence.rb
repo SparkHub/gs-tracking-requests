@@ -3,7 +3,7 @@ module Factory
   class << self
 
     def sequence
-      yield((0..1000).to_a.sample)
+      yield(rand(1000))
     end
   end
 end

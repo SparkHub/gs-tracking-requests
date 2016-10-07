@@ -13,11 +13,8 @@ describe TrackerHub::Request::Notification::HipChat do
   describe 'instantiation' do
 
     context 'with valid arguments' do
-      it { expect(described_class.new('token', 'room', 'username')).to \
-          be_a(TrackerHub::Request::Notification::HipChat) }
-
-      it { expect(described_class.new('token', 'room', 'username', {})).to \
-          be_a(TrackerHub::Request::Notification::HipChat) }
+      it { expect{described_class.new('token', 'room', 'username')}.to_not raise_error }
+      it { expect{described_class.new('token', 'room', 'username', {})}.to_not raise_error }
     end
 
     context 'API version' do
@@ -56,31 +53,6 @@ describe TrackerHub::Request::Notification::HipChat do
 
       context '#options' do
         it { expect{subject.options}.to raise_error(NoMethodError) }
-      end
-    end
-
-    context 'private' do
-      subject { described_class.new('token', 'room', 'username', api_version: 'v1') }
-
-      context '#client' do
-        it { expect(subject.instance_variable_get(:@client)).to be_a(HipChat::Client) }
-        it { expect(subject.instance_variable_set(:@client, 'hack')).to eq('hack') }
-      end
-
-      context '#username' do
-        it { expect(subject.instance_variable_get(:@username)).to eq('username') }
-        it { expect(subject.instance_variable_set(:@username, 'batman')).to eq('batman') }
-      end
-
-      context '#room' do
-        it { expect(subject.instance_variable_get(:@room)).to eq('room') }
-        it { expect(subject.instance_variable_set(:@room, 'echo')).to eq('echo') }
-      end
-
-      context '#options' do
-        it { expect(subject.instance_variable_get(:@options)).to eq({}) }
-        it { expect(subject.instance_variable_set(:@options, {my: :option})).to \
-          eq({my: :option}) }
       end
     end
   end
