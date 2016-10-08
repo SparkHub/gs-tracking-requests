@@ -8,9 +8,9 @@ module TrackerHub
 
         # Send a notification message
         #
-        # @param  [String] msg     Message to send
-        # @param  [Hash]   options See more options at
-        #                           https://www.hipchat.com/docs/apiv2/method/send_room_notification
+        # @param  [String] msg  Message to send
+        # @param  [Hash]   args See more options at
+        #                         https://www.hipchat.com/docs/apiv2/method/send_room_notification
         # @return [Boolean]
         #
         # @example
@@ -18,8 +18,8 @@ module TrackerHub
         #   > notifier.send_message('my message')
         #
         # @api public
-        def send_message(msg, options = {})
-          client[room].send(username, msg, options.merge(options))
+        def send_message(msg, args = {})
+          client[room].send(username, msg, options.merge(args))
         end
 
         private
