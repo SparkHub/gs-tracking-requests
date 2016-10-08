@@ -14,7 +14,7 @@ Part of __TrackerHub__, __Request__ is a gem tracking every requests on the back
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'tracker_hub-request', git: 'git@github.com:SparkHub/gs-tracking-requests.git'
+gem 'tracker_hub-request'
 ```
 
 And then execute:
