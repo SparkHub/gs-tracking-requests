@@ -6,10 +6,10 @@ gemspec
 group :development, :test do
   gem 'rubocop', require: false
   gem 'brakeman', require: false
-  if RUBY_VERSION < '2.1.0'
-    gem 'reek', '~> 3.11', require: false
-  else
+  if RUBY_VERSION >= '2.1.0'
     gem 'reek', require: false
+  else
+    gem 'reek', '~> 3.11', require: false
   end
 end
 

@@ -1,4 +1,4 @@
-[![Gem Version](https://badge.fury.io/rb/gs-tracking-requests.svg)](http://badge.fury.io/rb/gs-tracking-requests)
+[![Gem Version](https://badge.fury.io/rb/tracker_hub-request.svg)](http://badge.fury.io/rb/tracker_hub-request)
 [![Build Status](https://travis-ci.org/SparkHub/gs-tracking-requests.svg?branch=master)](https://travis-ci.org/SparkHub/gs-tracking-requests)
 [![Code Climate](https://codeclimate.com/github/SparkHub/gs-tracking-requests/badges/gpa.svg)](https://codeclimate.com/github/SparkHub/gs-tracking-requests)
 [![Test Coverage](https://codeclimate.com/github/SparkHub/gs-tracking-requests/badges/coverage.svg)](https://codeclimate.com/github/SparkHub/gs-tracking-requests/coverage)
